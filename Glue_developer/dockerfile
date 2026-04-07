@@ -1,0 +1,28 @@
+FROM amazon/aws-glue-libs:5
+
+USER root
+
+# Actualiza paquetes con yum
+RUN yum update -y
+
+# Instala pip + compiladores
+RUN yum install -y python3-pip python3-devel gcc gcc-c++ make \
+    && pip3 install --upgrade pip
+
+# Instala librerías de ETL
+RUN pip3 install \
+    pandas \
+    numpy \
+    pyarrow \
+    awswrangler \
+    requests \
+    ipykernel \
+    notebook \
+    jupyterlab
+
+# Directorio de trabajo
+WORKDIR /home/glue_user/workspace
+
+# Comando por defecto
+CMD ["pyspark"]
+

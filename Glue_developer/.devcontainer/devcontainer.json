@@ -1,0 +1,45 @@
+{
+    "name": "Glue Development Container",
+    "image": "glue5-custom",
+    
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter",
+                "ms-python.debugpy",
+                "formulahendry.code-runner"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/bin/python3",
+                "python.linting.enabled": true,
+                "python.linting.pylintEnabled": false,
+                "python.formatting.provider": "black",
+                "python.analysis.autoImportCompletions": true,
+                "python.analysis.typeCheckingMode": "basic",
+                "files.autoSave": "afterDelay",
+                "editor.formatOnSave": true,
+                "editor.minimap.enabled": true
+            }
+        }
+    },
+    
+    "workspaceFolder": "/home/glue_user/workspace",
+    
+    "forwardPorts": [4040, 8888],
+    "portsAttributes": {
+        "4040": {
+            "label": "Spark UI",
+            "onAutoForward": "notify"
+        },
+        "8888": {
+            "label": "Jupyter",
+            "onAutoForward": "notify"
+        }
+    },
+    
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/home/glue_user/workspace,type=bind"
+    ]
+}
