@@ -1,0 +1,27 @@
+{
+  "Comment": "ETL Bronze -> Silver",
+  "StartAt": "BronzeToSilver",
+  "States": {
+    "BronzeToSilver": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "glue-bronce-to-silver-superstore",
+        "Arguments": {
+          "--input_path.$":  "$.input_path",
+          "--output_path.$": "$.output_path",
+          "--reject_path.$": "$.reject_path"
+        }
+      },
+      "Retry": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "IntervalSeconds": 10,
+          "MaxAttempts": 2,
+          "BackoffRate": 2.0
+        }
+      ],
+      "End": true
+    }
+  }
+}
